@@ -22,11 +22,21 @@ jobs:
         python -m pip install --upgrade pip
         pip install flet requests pymupdf supabase
 
-    - name: Set up Java (Required for Android build)
+    - name: Set up Java
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '17'
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v3
+      with:
+        flutter-version: '3.24.3' # កំណត់ជំនាន់ Flutter ដែល Flet ត្រូវការ
+        channel: 'stable'
+        cache: true
+
+    - name: Accept Android licenses
+      run: flutter doctor --android-licenses || true
 
     - name: Build Flet APK
       run: |
